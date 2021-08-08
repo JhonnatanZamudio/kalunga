@@ -94,7 +94,7 @@ class SplashScreenUseCaseTest {
         launch(Dispatchers.Main) {
             Versions().create(4,versionRepository)
             val result = splashScreenUseCase.getAppVersion()
-            assertEquals("Versión 1.0.1", result)
+            assertEquals("Versión " + BuildConfig.VERSION_NAME, result)
         }
     }
 
