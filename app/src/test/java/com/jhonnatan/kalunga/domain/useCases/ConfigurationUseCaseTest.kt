@@ -256,4 +256,14 @@ class ConfigurationUseCaseTest {
         )
         Assert.assertEquals(false, result)
     }
+
+
+    @Test
+    fun `Caso 20`() {
+        val result = configurationUseCase.isValidPhone(
+            "313 3358142",
+            UtilsCountry().getMaxLength("Colombia")
+        )
+        Assert.assertEquals(true, result)
+    }
 }
