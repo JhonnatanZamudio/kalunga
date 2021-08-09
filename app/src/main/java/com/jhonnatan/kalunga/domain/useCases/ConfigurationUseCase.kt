@@ -83,8 +83,9 @@ class ConfigurationUseCase(
     fun isValidPhone(text: String, phoneLength: Int): Boolean?{
         if (text.length != phoneLength){
             return false
+        }else{
+            return true
         }
-        return false
     }
 
     fun changeEnableButton(
