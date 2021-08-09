@@ -80,6 +80,13 @@ class ConfigurationUseCase(
         return cityFounded
     }
 
+    fun isValidPhone(text: String, phoneLength: Int): Boolean?{
+        if (text.length != phoneLength){
+            return null
+        }
+        return false
+    }
+
     fun changeEnableButton(
         document: Int, phone: Int, city: Int
     ): Boolean {

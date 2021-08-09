@@ -134,6 +134,7 @@ class ConfigurationViewModel(
                     if (formatPhone !== text) {
                         numberPhone.value = formatPhone
                     }
+                    isValidPhone(formatPhone)
                 }
             }
         }
@@ -158,10 +159,7 @@ class ConfigurationViewModel(
                     changeEnableButton()
                 }
                 CodeField.PHONE_FIELD.code -> {
-                    userAccount.value!!.phone = text.toString()
-                    validPhone.value = 1
                     formatPhone(text.toString())
-                    changeEnableButton()
                 }
                 CodeField.CITY_FIELD.code -> {
                     isValidCity(text.toString())
@@ -188,6 +186,20 @@ class ConfigurationViewModel(
             setErrorText(CodeField.CITY_FIELD.code, ResponseErrorField.ERROR_INVALID_CITY.value)
         }
         changeEnableButton()
+    }
+
+    private fun isValidPhone(phone: String) {
+        /*val textMaxLenght =
+            UtilsCountry().getMaxLength(countriesList[countrySelectedPosition.value!!].pais)
+        if (configurationUseCase.isValidPhone(phone, textMaxLenght)) {
+            userAccount.value!!.phone = phone
+            validPhone.value = 1
+            setErrorText(CodeField.PHONE_FIELD.code, ResponseErrorField.DEFAULT.value)
+        } else {
+            validPhone.value = 0
+            setErrorText(CodeField.PHONE_FIELD.code, ResponseErrorField.ERROR_INVALID_PHONE.value)
+        }
+        changeEnableButton()*/
     }
 
     private fun changeEnableButton() {
