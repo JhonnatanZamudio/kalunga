@@ -44,6 +44,7 @@ class ConfigurationViewModel(
     val snackBarAction = MutableLiveData<Int>()
     val typeDocumentSelectedPosition = MutableLiveData<Int>()
     val numberPhone = MutableLiveData<String>()
+    val numberPhoneStart = MutableLiveData<Boolean>()
     val citiesList: MutableLiveData<ArrayList<ResponseCities>> =
         MutableLiveData<ArrayList<ResponseCities>>()
     private val configurationUseCase =
@@ -85,6 +86,7 @@ class ConfigurationViewModel(
         validIdentification.value = 0
         validPhone.value = 0
         snackBarNavigate.value = CodeSnackBarCloseAction.NONE.code
+        numberPhoneStart.value=false
     }
 
     fun setInitialValues() {
@@ -125,11 +127,14 @@ class ConfigurationViewModel(
             if (!text.last().isWhitespace()) {
                 whiteSpacesList =
                     UtilsCountry().getWhiteSpaceList(countriesList[countrySelectedPosition.value!!].pais)
+                val textMaxLenght =
+                    UtilsCountry().getMaxLength(countriesList[countrySelectedPosition.value!!].pais)
                 if (whiteSpacesList.isNotEmpty()) {
-                    val formatPhone = configurationUseCase.getFormatPhone(text, whiteSpacesList)
+                    val formatPhone = configurationUseCase.getFormatPhone(text, whiteSpacesList, textMaxLenght)
                     if (formatPhone !== text) {
                         numberPhone.value = formatPhone
                     }
+                    isValidPhone(formatPhone)
                 }
             }
         }
@@ -154,10 +159,7 @@ class ConfigurationViewModel(
                     changeEnableButton()
                 }
                 CodeField.PHONE_FIELD.code -> {
-                    userAccount.value!!.phone = text.toString()
-                    validPhone.value = 1
                     formatPhone(text.toString())
-                    changeEnableButton()
                 }
                 CodeField.CITY_FIELD.code -> {
                     isValidCity(text.toString())
@@ -182,6 +184,20 @@ class ConfigurationViewModel(
         } else {
             validCity.value = 0
             setErrorText(CodeField.CITY_FIELD.code, ResponseErrorField.ERROR_INVALID_CITY.value)
+        }
+        changeEnableButton()
+    }
+
+    private fun isValidPhone(phone: String) {
+        val textMaxLenght =
+            UtilsCountry().getMaxLength(countriesList[countrySelectedPosition.value!!].pais)
+        if (configurationUseCase.isValidPhone(phone, textMaxLenght)) {
+            userAccount.value!!.phone = phone
+            validPhone.value = 1
+            setErrorText(CodeField.PHONE_FIELD.code, ResponseErrorField.DEFAULT.value)
+        } else {
+            validPhone.value = 0
+            setErrorText(CodeField.PHONE_FIELD.code, ResponseErrorField.ERROR_INVALID_PHONE.value)
         }
         changeEnableButton()
     }

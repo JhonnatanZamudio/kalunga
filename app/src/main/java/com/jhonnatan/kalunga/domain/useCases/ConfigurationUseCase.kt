@@ -56,13 +56,17 @@ class ConfigurationUseCase(
         return text.isEmpty()
     }
 
-    fun getFormatPhone(text: String, whiteSpacesList: List<Int>) : String{
+    fun getFormatPhone(text: String, whiteSpacesList: List<Int>, textMaxLenght:Int) : String{
         for (id in whiteSpacesList) {
             if (id == text.length) {
-                return "${text.substring(0,text.length-1)} ${text.last()}"
+               return "${text.substring(0,text.length-1)} ${text.last()}"
             }
         }
-        return text
+        return if (text.length <= textMaxLenght){
+            text
+        } else {
+            text.substring(0,textMaxLenght)
+        }
     }
 
     fun isCityInList(text: String, citiesList: ArrayList<ResponseCities>): Boolean{
@@ -74,6 +78,10 @@ class ConfigurationUseCase(
             }
         }
         return cityFounded
+    }
+
+    fun isValidPhone(text: String, phoneLength: Int): Boolean{
+        return text.length == phoneLength
     }
 
     fun changeEnableButton(

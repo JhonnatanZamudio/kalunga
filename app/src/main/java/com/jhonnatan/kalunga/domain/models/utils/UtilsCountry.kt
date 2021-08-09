@@ -2,6 +2,7 @@ package com.jhonnatan.kalunga.domain.models.utils
 
 import com.jhonnatan.kalunga.R
 import com.jhonnatan.kalunga.domain.models.enumeration.CodeCountries
+import com.jhonnatan.kalunga.domain.models.enumeration.EnumerationPhoneMaxLength
 import com.jhonnatan.kalunga.domain.models.enumeration.EnumerationWhiteSpaces
 
 /****
@@ -38,6 +39,20 @@ class UtilsCountry {
             CodeCountries.ECUADOR.value -> EnumerationWhiteSpaces.ECUADOR.code
             CodeCountries.PERU.value -> EnumerationWhiteSpaces.PERU.code
             else -> (listOf())
+        }
+    }
+
+    fun getMaxLength(country: String): Int {
+        return when (country) {
+            CodeCountries.COLOMBIA.value -> EnumerationPhoneMaxLength.COLOMBIA.code
+            CodeCountries.VENEZUELA.value -> EnumerationPhoneMaxLength.VENEZUELA.code
+            CodeCountries.ITALIA.value -> EnumerationPhoneMaxLength.ITALIA.code
+            CodeCountries.ESPANA.value -> EnumerationPhoneMaxLength.ESPANA.code
+            CodeCountries.ESTADOS_UNIDOS.value -> EnumerationPhoneMaxLength.ESTADOS_UNIDOS.code
+            CodeCountries.CHILE.value -> EnumerationPhoneMaxLength.CHILE.code
+            CodeCountries.ECUADOR.value -> EnumerationPhoneMaxLength.ECUADOR.code
+            CodeCountries.PERU.value -> EnumerationPhoneMaxLength.PERU.code
+            else -> (0)
         }
     }
 }

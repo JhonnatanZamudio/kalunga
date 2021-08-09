@@ -14,5 +14,6 @@ enum class ResponseErrorField (val value: String){
     ERROR_LONG_CHARACTERS("Debe ser mayor a "),
     ERROR_CHARACTERS(" caracteres"),
     ERROR_PASSWORD_DOESNT_MATCH("Las contraseñas no coinciden"),
-    ERROR_INVALID_CITY("Seleccione una ciudad de la lista")
+    ERROR_INVALID_CITY("Seleccione una ciudad de la lista"),
+    ERROR_INVALID_PHONE("El número no es valido")
 }
