@@ -82,7 +82,7 @@ class ConfigurationUseCase(
 
     fun isValidPhone(text: String, phoneLength: Int): Boolean?{
         if (text.length != phoneLength){
-            return null
+            return false
         }
         return false
     }
