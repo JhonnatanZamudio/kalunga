@@ -135,7 +135,7 @@ class ConfigurationUseCaseTest {
     @Test
     fun `Caso 06`() {
         val result =
-            configurationUseCase.getFormatPhone("313", UtilsCountry().getWhiteSpaceList("Colombia"))
+            configurationUseCase.getFormatPhone("313", UtilsCountry().getWhiteSpaceList("Colombia"),UtilsCountry().getMaxLength("Colombia"))
         Assert.assertEquals("313", result)
     }
 
@@ -144,7 +144,8 @@ class ConfigurationUseCaseTest {
     fun `Caso 07`() {
         val result = configurationUseCase.getFormatPhone(
             "3133",
-            UtilsCountry().getWhiteSpaceList("Colombia")
+            UtilsCountry().getWhiteSpaceList("Colombia"),
+            UtilsCountry().getMaxLength("Colombia")
         )
         Assert.assertEquals("313 3", result)
     }
@@ -235,5 +236,15 @@ class ConfigurationUseCaseTest {
             Assert.assertEquals(3, result)
             userDataSourceRemote.deleteUser(userInfo.account)
         }
+    }
+
+    @Test
+    fun `Caso 18`() {
+        val result = configurationUseCase.getFormatPhone(
+            "313 33581422",
+            UtilsCountry().getWhiteSpaceList("Colombia"),
+            UtilsCountry().getMaxLength("Colombia")
+        )
+        Assert.assertEquals("313 3358142", result)
     }
 }

@@ -92,9 +92,11 @@ class ConfigurationActivity : AppCompatActivity() {
         })
 
         viewModel.numberPhone.observe(this, {
-            if (it.isNotEmpty()) {
+            if (viewModel.numberPhoneStart.value == true) {
                 binding.editTextPhone.setText(it)
                 binding.editTextPhone.setSelection(binding.editTextPhone.length())
+            } else {
+                viewModel.numberPhoneStart.value = true
             }
         })
 

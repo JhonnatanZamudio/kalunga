@@ -44,6 +44,7 @@ class ConfigurationViewModel(
     val snackBarAction = MutableLiveData<Int>()
     val typeDocumentSelectedPosition = MutableLiveData<Int>()
     val numberPhone = MutableLiveData<String>()
+    val numberPhoneStart = MutableLiveData<Boolean>()
     val citiesList: MutableLiveData<ArrayList<ResponseCities>> =
         MutableLiveData<ArrayList<ResponseCities>>()
     private val configurationUseCase =
@@ -85,6 +86,7 @@ class ConfigurationViewModel(
         validIdentification.value = 0
         validPhone.value = 0
         snackBarNavigate.value = CodeSnackBarCloseAction.NONE.code
+        numberPhoneStart.value=false
     }
 
     fun setInitialValues() {
@@ -125,8 +127,10 @@ class ConfigurationViewModel(
             if (!text.last().isWhitespace()) {
                 whiteSpacesList =
                     UtilsCountry().getWhiteSpaceList(countriesList[countrySelectedPosition.value!!].pais)
+                val textMaxLenght =
+                    UtilsCountry().getMaxLength(countriesList[countrySelectedPosition.value!!].pais)
                 if (whiteSpacesList.isNotEmpty()) {
-                    val formatPhone = configurationUseCase.getFormatPhone(text, whiteSpacesList)
+                    val formatPhone = configurationUseCase.getFormatPhone(text, whiteSpacesList, textMaxLenght)
                     if (formatPhone !== text) {
                         numberPhone.value = formatPhone
                     }
