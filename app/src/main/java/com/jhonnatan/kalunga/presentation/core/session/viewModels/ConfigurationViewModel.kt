@@ -189,7 +189,7 @@ class ConfigurationViewModel(
     }
 
     private fun isValidPhone(phone: String) {
-        /*val textMaxLenght =
+        val textMaxLenght =
             UtilsCountry().getMaxLength(countriesList[countrySelectedPosition.value!!].pais)
         if (configurationUseCase.isValidPhone(phone, textMaxLenght)) {
             userAccount.value!!.phone = phone
@@ -199,7 +199,7 @@ class ConfigurationViewModel(
             validPhone.value = 0
             setErrorText(CodeField.PHONE_FIELD.code, ResponseErrorField.ERROR_INVALID_PHONE.value)
         }
-        changeEnableButton()*/
+        changeEnableButton()
     }
 
     private fun changeEnableButton() {
