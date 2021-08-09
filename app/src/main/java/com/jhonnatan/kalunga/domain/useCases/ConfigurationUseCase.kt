@@ -56,7 +56,7 @@ class ConfigurationUseCase(
         return text.isEmpty()
     }
 
-    fun getFormatPhone(text: String, whiteSpacesList: List<Int>, textMaxLenght:Int) : String?{
+    fun getFormatPhone(text: String, whiteSpacesList: List<Int>, textMaxLenght:Int) : String{
         for (id in whiteSpacesList) {
             if (id == text.length) {
                return "${text.substring(0,text.length-1)} ${text.last()}"
@@ -65,7 +65,7 @@ class ConfigurationUseCase(
         return if (text.length <= textMaxLenght){
             text
         } else {
-            null
+            text.substring(0,textMaxLenght)
         }
     }
 
