@@ -204,7 +204,7 @@ class ConfigurationActivity : AppCompatActivity() {
             )
         })
 
-        viewModel.emailValue.value = intent.getStringExtra("ACCOUNT")
+        viewModel.emailValue.value = intent.getStringExtra("EMAIL")
         viewModel.nameValue.value = intent.getStringExtra("FULL_NAME")
         viewModel.passwordValue.value = intent.getStringExtra("PASSWORD_USER")
         viewModel.statusUser.value = intent.getIntExtra("STATUS_USER",0)
