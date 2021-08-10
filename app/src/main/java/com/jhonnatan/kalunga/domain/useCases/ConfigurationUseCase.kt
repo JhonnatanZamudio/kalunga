@@ -10,6 +10,7 @@ import com.jhonnatan.kalunga.data.user.entities.ResponseUsers
 import com.jhonnatan.kalunga.data.user.entities.User
 import com.jhonnatan.kalunga.data.user.repository.UserRepository
 import com.jhonnatan.kalunga.domain.models.enumeration.CodeStatusUser
+import java.text.Normalizer
 
 /**
  * Project: kalunga
@@ -71,8 +72,13 @@ class ConfigurationUseCase(
 
     fun isCityInList(text: String, citiesList: ArrayList<ResponseCities>): Boolean{
         var cityFounded = false
+        val REGEX_UNACCENT = "\\p{InCombiningDiacriticalMarks}+".toRegex()
         for(id in citiesList[0].data.indices){
-            if (citiesList[0].data[id] == text){
+            var temp = Normalizer.normalize(citiesList[0].data[id].lowercase(), Normalizer.Form.NFD)
+            val citiesListItem = REGEX_UNACCENT.replace(temp, "")
+            temp = Normalizer.normalize(text.lowercase(), Normalizer.Form.NFD)
+            val textFormated = REGEX_UNACCENT.replace(temp, "")
+            if (citiesListItem == textFormated){
                 cityFounded = true
                 break
             }
