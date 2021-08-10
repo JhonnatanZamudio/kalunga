@@ -37,7 +37,7 @@ class ConfigurationActivity : AppCompatActivity() {
     private lateinit var binding: ActivityConfigurationBinding
     private val tag = "Configuration"
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint("SetTextI18n", "ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val viewModelFactory = ConfigurationViewModelFactory.getInstance(this)
@@ -101,7 +101,7 @@ class ConfigurationActivity : AppCompatActivity() {
         })
 
         viewModel.citiesList.observe(this, {
-            citiesList -> binding.textViewCity.setAdapter(ArrayAdapter(this@ConfigurationActivity, R.layout.support_simple_spinner_dropdown_item,citiesList[0].data))
+            citiesList -> binding.textViewCity.setAdapter(ArrayAdapter(this@ConfigurationActivity, R.layout.autocomplete,citiesList[0].data))
         })
 
         viewModel.errorIdentification.observe(this, {
