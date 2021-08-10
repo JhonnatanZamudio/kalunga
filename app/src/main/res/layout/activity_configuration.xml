@@ -105,6 +105,8 @@
                 android:maxLines="30"
                 android:paddingStart="15dp"
                 android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingEnd="15dp"
                 android:textColor="@color/white"
                 android:textSize="22sp"
                 android:afterTextChanged="@{(editable)->vModel.areFieldsEmpty(editable, codeField.IDENTIFICATION_FIELD.code)}"
