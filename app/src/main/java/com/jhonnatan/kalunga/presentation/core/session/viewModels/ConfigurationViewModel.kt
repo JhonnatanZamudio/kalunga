@@ -271,8 +271,8 @@ class ConfigurationViewModel(
                 userAccount.value!!.email,
                 userAccount.value!!.name,
                 typeDocumentsList[typeDocumentSelectedPosition.value!!].valor,
-                userAccount.value!!.identification,
-                userAccount.value!!.phone.replace(" ",""),
+                UtilsSecurity().cipherData(userAccount.value!!.identification)!!,
+                UtilsSecurity().cipherData(userAccount.value!!.phone.replace(" ",""))!!,
                 countriesList[countrySelectedPosition.value!!].pais,
                 userAccount.value!!.city
             )
