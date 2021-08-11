@@ -60,7 +60,7 @@ class LogInViewModel : ViewModel() {
                 CodeField.EMAIL_FIELD.code -> {
                     userAccount.value!!.email = text.toString()
                     userAccount.value!!.id = text.toString()
-                    //isValidEmail(text)
+                    isValidEmail(text)
                 }
                 CodeField.PASSWORD_FIELD.code -> {
                     userAccount.value!!.password = text.toString()
@@ -82,6 +82,17 @@ class LogInViewModel : ViewModel() {
         }
     }
 
+    private fun isValidEmail(text: Editable?) {
+        if (UtilsFields().isValidEmail(text.toString())) {
+            setErrorText(CodeField.EMAIL_FIELD.code, ResponseErrorField.DEFAULT.value)
+            validEmail.value = 1
+            //changeEnableButton()
+        } else {
+            setErrorText(CodeField.EMAIL_FIELD.code, ResponseErrorField.ERROR_INVALID_MAIL.value)
+            validEmail.value = 0
+            //changeEnableButton()
+        }
+    }
     fun showPassword(){
         passwordCounter.value = passwordCounter.value!! + 1
         showPassword.value = logInUseCase.isNumberPair(passwordCounter.value!!)
