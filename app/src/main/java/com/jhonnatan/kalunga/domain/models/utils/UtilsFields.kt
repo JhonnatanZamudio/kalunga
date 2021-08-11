@@ -21,4 +21,8 @@ class UtilsFields {
     fun isValidLong(text: String, min: Int): Boolean {
         return text.length > min
     }
+
+    fun isNumberPair(number: Int): Boolean {
+        return number % 2 == 0
+    }
 }

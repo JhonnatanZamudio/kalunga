@@ -9,7 +9,9 @@ package com.jhonnatan.kalunga.domain.useCases
  **/
 class LogInUseCase {
 
-    fun isNumberPair(number: Int): Boolean {
-        return number % 2 == 0
+    fun changeEnableButton(
+        email: Int, password: Int
+    ): Boolean {
+        return email == 1 && password == 1
     }
 }

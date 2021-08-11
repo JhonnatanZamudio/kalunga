@@ -55,6 +55,14 @@ class LogInActivity : AppCompatActivity() {
             binding.textViewPasswordError.text = it
         })
 
+        viewModel.buttonLogInDrawable.observe(this, {
+            binding.buttonLogIn.setBackgroundResource(it)
+        })
+
+        viewModel.buttonLogInEnable.observe(this, {
+            binding.buttonLogIn.isEnabled = it
+        })
+
         viewModel.navigateToSignUp.observe(this, {
             if (it == true)
                 goToSignUp()

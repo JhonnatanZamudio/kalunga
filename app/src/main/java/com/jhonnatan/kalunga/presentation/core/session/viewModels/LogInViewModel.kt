@@ -4,6 +4,7 @@ import android.text.Editable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.jhonnatan.kalunga.R
 import com.jhonnatan.kalunga.domain.models.entities.UserAccountData
 import com.jhonnatan.kalunga.domain.models.enumeration.CodeField
 import com.jhonnatan.kalunga.domain.models.enumeration.CodeLong
@@ -30,6 +31,8 @@ class LogInViewModel : ViewModel() {
     var userAccount = MutableLiveData<UserAccountData>()
     val errorEmail = MutableLiveData<String>()
     val errorPassword = MutableLiveData<String>()
+    val buttonLogInDrawable = MutableLiveData<Int>()
+    val buttonLogInEnable = MutableLiveData<Boolean>()
     private val logInUseCase = LogInUseCase()
     private var validEmail = MutableLiveData<Int>()
     private var validPassword = MutableLiveData<Int>()
@@ -53,7 +56,7 @@ class LogInViewModel : ViewModel() {
                 CodeField.EMAIL_FIELD.code -> validEmail.value = 0
                 CodeField.PASSWORD_FIELD.code -> validPassword.value = 0
             }
-            //changeEnableButton()
+            changeEnableButton()
         } else {
             setErrorText(field, ResponseErrorField.DEFAULT.value)
             when (field) {
@@ -81,11 +84,11 @@ class LogInViewModel : ViewModel() {
         if (UtilsFields().isValidEmail(text.toString())) {
             setErrorText(CodeField.EMAIL_FIELD.code, ResponseErrorField.DEFAULT.value)
             validEmail.value = 1
-            //changeEnableButton()
+            changeEnableButton()
         } else {
             setErrorText(CodeField.EMAIL_FIELD.code, ResponseErrorField.ERROR_INVALID_MAIL.value)
             validEmail.value = 0
-            //changeEnableButton()
+            changeEnableButton()
         }
     }
 
@@ -93,19 +96,34 @@ class LogInViewModel : ViewModel() {
         if (UtilsFields().isValidLong(text.toString(), CodeLong.PASSWORD_FIELD.code)) {
             setErrorText(CodeField.PASSWORD_FIELD.code, ResponseErrorField.DEFAULT.value)
             validPassword.value = 1
-            //changeEnableButton()
+            changeEnableButton()
         } else {
             setErrorText(
                 CodeField.PASSWORD_FIELD.code,
                 ResponseErrorField.ERROR_LONG_CHARACTERS.value + CodeLong.PASSWORD_FIELD.code + ResponseErrorField.ERROR_CHARACTERS.value
             )
             validPassword.value = 0
-            //changeEnableButton()
+            changeEnableButton()
         }
     }
+
+    private fun changeEnableButton() {
+        if (logInUseCase.changeEnableButton(
+                validEmail.value!!,
+                validPassword.value!!
+            )
+        ) {
+            buttonLogInDrawable.value = R.drawable.boton_oscuro
+            buttonLogInEnable.value = true
+        } else {
+            buttonLogInDrawable.value = R.drawable.boton_oscuro_disabled
+            buttonLogInEnable.value = false
+        }
+    }
+
     fun showPassword(){
         passwordCounter.value = passwordCounter.value!! + 1
-        showPassword.value = logInUseCase.isNumberPair(passwordCounter.value!!)
+        showPassword.value = UtilsFields().isNumberPair(passwordCounter.value!!)
     }
 
     fun navigateToSignUp() {

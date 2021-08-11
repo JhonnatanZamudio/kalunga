@@ -99,7 +99,7 @@ class SignUpUseCaseTest {
         assertEquals(true, result)
     }
 
-    @Test
+    /*@Test
     fun `Caso 11`() {
         val result = signUpUseCase.isNumberPair(1)
         assertEquals(false, result)
@@ -109,7 +109,7 @@ class SignUpUseCaseTest {
     fun `Caso 12`() {
         val result = signUpUseCase.isNumberPair(2)
         assertEquals(true, result)
-    }
+    }*/
 
     @Test
     fun `Caso 13`() {

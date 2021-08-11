@@ -21,8 +21,4 @@ class SignUpUseCase {
         return email == 1 && name == 1 && password == 1 && confirmPassword == 1
     }
 
-    fun isNumberPair(number: Int): Boolean {
-        return number % 2 == 0
-    }
-
 }

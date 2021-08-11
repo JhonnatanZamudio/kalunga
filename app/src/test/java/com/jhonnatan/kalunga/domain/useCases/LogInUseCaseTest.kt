@@ -23,16 +23,5 @@ class LogInUseCaseTest {
         logInUseCase = LogInUseCase()
     }
 
-    @Test
-    fun `Caso 01`() {
-        val result = logInUseCase.isNumberPair(1)
-        Assert.assertEquals(false, result)
-    }
-
-    @Test
-    fun `Caso 02`() {
-        val result = logInUseCase.isNumberPair(2)
-        Assert.assertEquals(true, result)
-    }
 
 }
