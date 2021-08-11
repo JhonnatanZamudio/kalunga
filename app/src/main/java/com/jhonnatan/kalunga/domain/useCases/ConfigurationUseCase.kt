@@ -22,8 +22,10 @@ import java.text.Normalizer
 class ConfigurationUseCase(
     private val userRepository: UserRepository,
     private val citiesRepository: CitiesRepository,
-    private val typeDocumentRepository: TypeDocumentRepository
+    private val typeDocumentRepository: TypeDocumentRepository,
 ) {
+
+    lateinit var userResponse: List<ResponseUsers>
 
     suspend fun getDataCountries(): List<ResponseCountries> {
         return citiesRepository.getDataCountries().sortedBy { myObject -> myObject.codPais }
@@ -97,13 +99,13 @@ class ConfigurationUseCase(
     }
 
     suspend fun existsUser(user: String): Int{
-        val userExists = userRepository.getUserByAccountRemote(user)
-        if (!userExists.isNullOrEmpty()){
-            if (userExists.first().message == "No existe el usuario en la base de datos") {
+        userResponse = userRepository.getUserByAccountRemote(user)
+        if (!userResponse.isNullOrEmpty()){
+            if (userResponse.first().message == "No existe el usuario en la base de datos") {
                 return 0
-            } else if (userExists.first().status == "successful") {
+            } else if (userResponse.first().status == "successful") {
                 return 1
-            } else if (userExists.first().status == "error") {
+            } else if (userResponse.first().status == "error") {
                 return 2
             }
         }

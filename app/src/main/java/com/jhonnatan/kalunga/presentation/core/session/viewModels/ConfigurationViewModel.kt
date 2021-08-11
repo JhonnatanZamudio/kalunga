@@ -236,9 +236,10 @@ class ConfigurationViewModel(
         when (existsUser) {
             0 -> createUser()
             1 -> {
-                if (statusUser.value==CodeStatusUser.ENABLED_USER.code){
+                val status = configurationUseCase.userResponse.first().data?.first()!!.statusUser
+                if (status==CodeStatusUser.ENABLED_USER.code){
                     snackBarAction.value=1
-                } else if (statusUser.value==CodeStatusUser.UNVALIDATED_USER.code){
+                } else if (status==CodeStatusUser.UNVALIDATED_USER.code){
                     snackBarAction.value=2
                 }
             }
