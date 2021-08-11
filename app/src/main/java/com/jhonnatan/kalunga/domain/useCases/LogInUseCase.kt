@@ -12,12 +12,4 @@ class LogInUseCase {
     fun isNumberPair(number: Int): Boolean {
         return number % 2 == 0
     }
-
-    fun areFieldsEmpty(text: String): Boolean {
-        return text.isEmpty()
-    }
-
-    fun isValidLong(text: String, min: Int): Boolean {
-        return text.length > min
-    }
 }

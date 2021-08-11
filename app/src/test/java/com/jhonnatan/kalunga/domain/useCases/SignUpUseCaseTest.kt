@@ -1,5 +1,6 @@
 package com.jhonnatan.kalunga.domain.useCases
 
+import com.jhonnatan.kalunga.domain.models.utils.UtilsFields
 import com.jhonnatan.kalunga.domain.useCases.utils.DataPools
 import io.github.serpro69.kfaker.Faker
 import org.junit.Assert.*
@@ -24,16 +25,17 @@ class SignUpUseCaseTest {
     fun setup() {
         signUpUseCase = SignUpUseCase()
     }
+/*
 
     @Test
     fun `Caso 01`() {
-        val result = signUpUseCase.areFieldsEmpty("")
+        val result = UtilsFields().areFieldsEmpty("")
         assertEquals(true, result)
     }
 
     @Test
     fun `Caso 02`() {
-        val result = signUpUseCase.areFieldsEmpty(faker.animal.name())
+        val result = UtilsFields().areFieldsEmpty(faker.animal.name())
         assertEquals(false, result)
     }
 
@@ -41,7 +43,7 @@ class SignUpUseCaseTest {
     fun `Caso 03`() {
         emails = DataPools().createData("signUp/datapool_1", 0, 1) as MutableList<String>
         for (id in 0 until emails.size) {
-            val result = signUpUseCase.isValidEmail(emails[id])
+            val result = UtilsFields().isValidEmail(emails[id])
             assertEquals(false, result)
         }
     }
@@ -50,38 +52,39 @@ class SignUpUseCaseTest {
     fun `Caso 04`() {
         emails = DataPools().createData("signUp/datapool_2", 0, 1) as MutableList<String>
         for (id in 0 until emails.size) {
-            val result = signUpUseCase.isValidEmail(emails[id])
+            val result = UtilsFields().isValidEmail(emails[id])
             assertEquals(true, result)
         }
     }
 
     @Test
     fun `Caso 05`() {
-        val result = signUpUseCase.isValidLong(faker.animal.name().first().toString(), 2)
+        val result = UtilsFields().isValidLong(faker.animal.name().first().toString(), 2)
         assertEquals(false, result)
     }
 
     @Test
     fun `Caso 06`() {
-        val result = signUpUseCase.isValidLong(faker.animal.name(), 2)
+        val result = UtilsFields().isValidLong(faker.animal.name(), 2)
         assertEquals(true, result)
     }
 
     @Test
     fun `Caso 07`() {
-        val result = signUpUseCase.isValidLong(faker.animal.name().first().toString(), 5)
+        val result = UtilsFields().isValidLong(faker.animal.name().first().toString(), 5)
         assertEquals(false, result)
     }
 
     @Test
     fun `Caso 08`() {
-        val result = signUpUseCase.isValidLong(
+        val result = UtilsFields().isValidLong(
             faker.animal.name() + faker.animal.name() + faker.animal.name(),
             5
         )
         assertEquals(true, result)
     }
 
+*/
 
     @Test
     fun `Caso 09`() {

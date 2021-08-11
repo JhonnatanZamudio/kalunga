@@ -9,6 +9,7 @@ import com.jhonnatan.kalunga.domain.models.entities.UserAccountData
 import com.jhonnatan.kalunga.domain.models.enumeration.CodeField
 import com.jhonnatan.kalunga.domain.models.enumeration.CodeLong
 import com.jhonnatan.kalunga.domain.models.enumeration.ResponseErrorField
+import com.jhonnatan.kalunga.domain.models.utils.UtilsFields
 import com.jhonnatan.kalunga.domain.useCases.SignUpUseCase
 import kotlinx.coroutines.DelicateCoroutinesApi
 
@@ -58,7 +59,7 @@ class SignUpViewModel : ViewModel() {
 
     fun areFieldsEmpty(text: Editable?, field: Int) {
 
-        if (signUpUseCase.areFieldsEmpty(text.toString())) {
+        if (UtilsFields().areFieldsEmpty(text.toString())) {
             setErrorText(field, ResponseErrorField.ERROR_EMPTY.value)
             when (field) {
                 CodeField.EMAIL_FIELD.code -> validEmail.value = 0
@@ -107,7 +108,7 @@ class SignUpViewModel : ViewModel() {
     }
 
     private fun isValidEmail(text: Editable?) {
-        if (signUpUseCase.isValidEmail(text.toString())) {
+        if (UtilsFields().isValidEmail(text.toString())) {
             setErrorText(CodeField.EMAIL_FIELD.code, ResponseErrorField.DEFAULT.value)
             validEmail.value = 1
             changeEnableButton()
@@ -119,7 +120,7 @@ class SignUpViewModel : ViewModel() {
     }
 
     private fun isValidLong(text: Editable?, code: Int, minValue: Int, validItem: MutableLiveData<Int>) {
-        if (signUpUseCase.isValidLong(text.toString(), minValue)) {
+        if (UtilsFields().isValidLong(text.toString(), minValue)) {
             setErrorText(code, ResponseErrorField.DEFAULT.value)
             validItem.value = 1
             changeEnableButton()

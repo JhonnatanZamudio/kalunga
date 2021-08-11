@@ -35,28 +35,4 @@ class LogInUseCaseTest {
         Assert.assertEquals(true, result)
     }
 
-    @Test
-    fun `Caso 03`() {
-        val result = logInUseCase.areFieldsEmpty("")
-        Assert.assertEquals(true, result)
-    }
-
-    @Test
-    fun `Caso 04`() {
-        val result = logInUseCase.areFieldsEmpty(faker.animal.name())
-        Assert.assertEquals(false, result)
-    }
-
-
-    @Test
-    fun `Caso 05`() {
-        val result = logInUseCase.isValidLong(faker.animal.name().first().toString(), 2)
-        Assert.assertEquals(false, result)
-    }
-
-    @Test
-    fun `Caso 06`() {
-        val result = logInUseCase.isValidLong(faker.animal.name(), 2)
-        Assert.assertEquals(true, result)
-    }
 }
