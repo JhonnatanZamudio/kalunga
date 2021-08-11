@@ -1,5 +1,6 @@
 package com.jhonnatan.kalunga.data.user.datasource
 
+import com.jhonnatan.kalunga.data.RequestUserLogin
 import com.jhonnatan.kalunga.data.user.entities.RequestUsers
 import com.jhonnatan.kalunga.data.user.entities.RequestUsersUpdate
 import com.jhonnatan.kalunga.data.user.entities.ResponseUsers
@@ -52,6 +53,12 @@ class UserDataSourceRemote {
     suspend fun deleteUser(account: String): List<ResponseUsers> {
         return withContext(Dispatchers.IO) {
             response.deleteUser(account).body() ?: emptyList()
+        }
+    }
+
+    suspend fun loginUserRemote(requestUsersLogin: RequestUserLogin): List<ResponseUsers> {
+        return withContext(Dispatchers.IO) {
+            response.loginUserRemote(requestUsersLogin).body() ?: emptyList()
         }
     }
 }

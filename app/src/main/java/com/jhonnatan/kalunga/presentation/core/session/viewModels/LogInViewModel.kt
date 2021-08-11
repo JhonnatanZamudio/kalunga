@@ -1,18 +1,28 @@
 package com.jhonnatan.kalunga.presentation.core.session.viewModels
 
+import android.content.Context
 import android.text.Editable
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import com.jhonnatan.kalunga.R
+import com.jhonnatan.kalunga.data.RequestUserLogin
+import com.jhonnatan.kalunga.data.user.entities.RequestUsers
+import com.jhonnatan.kalunga.data.user.repository.UserRepository
+import com.jhonnatan.kalunga.domain.injectionOfDependencies.Injection
 import com.jhonnatan.kalunga.domain.models.entities.UserAccountData
 import com.jhonnatan.kalunga.domain.models.enumeration.CodeField
 import com.jhonnatan.kalunga.domain.models.enumeration.CodeLong
+import com.jhonnatan.kalunga.domain.models.enumeration.CodeSnackBarCloseAction
 import com.jhonnatan.kalunga.domain.models.enumeration.ResponseErrorField
 import com.jhonnatan.kalunga.domain.models.utils.UtilsFields
+import com.jhonnatan.kalunga.domain.models.utils.UtilsNetwork
+import com.jhonnatan.kalunga.domain.models.utils.UtilsSecurity
 import com.jhonnatan.kalunga.domain.useCases.LogInUseCase
 import com.jhonnatan.kalunga.domain.useCases.SignUpUseCase
 import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.launch
 
 /**
  * Project: kalunga
@@ -22,7 +32,7 @@ import kotlinx.coroutines.DelicateCoroutinesApi
  * All rights reserved 2021.
  **/
 
-class LogInViewModel : ViewModel() {
+class LogInViewModel(userRepository: UserRepository) : ViewModel() {
 
     private var passwordCounter = MutableLiveData<Int>()
     var showPassword = MutableLiveData<Boolean>()
@@ -33,7 +43,13 @@ class LogInViewModel : ViewModel() {
     val errorPassword = MutableLiveData<String>()
     val buttonLogInDrawable = MutableLiveData<Int>()
     val buttonLogInEnable = MutableLiveData<Boolean>()
-    private val logInUseCase = LogInUseCase()
+    val snackBarTextWarning = MutableLiveData<String>()
+    val snackBarTextError = MutableLiveData<String>()
+    val snackBarTextInfo = MutableLiveData<String>()
+    val snackBarTextSuccess = MutableLiveData<String>()
+    val snackBarNavigate = MutableLiveData<Int>()
+    val snackBarAction = MutableLiveData<Int>()
+    private val logInUseCase = LogInUseCase(userRepository)
     private var validEmail = MutableLiveData<Int>()
     private var validPassword = MutableLiveData<Int>()
 
@@ -46,6 +62,7 @@ class LogInViewModel : ViewModel() {
         errorEmail.value = ResponseErrorField.DEFAULT.value
         errorPassword.value = ResponseErrorField.DEFAULT.value
         userAccount.value = UserAccountData("","","","", "","","","")
+        snackBarNavigate.value = CodeSnackBarCloseAction.NONE.code
     }
 
     fun areFieldsEmpty(text: Editable?, field: Int) {
@@ -133,24 +150,44 @@ class LogInViewModel : ViewModel() {
     fun navigateToForgetPassword() {
         navigateToForgetPassword.value = true
     }
+
+    fun checkOnline(context: Context): Boolean {
+        return UtilsNetwork().isOnline(context)
+    }
+
+
+    fun login() {
+        viewModelScope.launch {
+            loginUserRemote()
+        }
+    }
+
+    suspend fun loginUserRemote(){
+        val userInfo = RequestUserLogin(
+            userAccount.value!!.email,
+            UtilsSecurity().cipherData(userAccount.value!!.password)!!,
+        )
+        val resultUser = logInUseCase.loginUser(userInfo)
+    }
 }
 
 
 
 @DelicateCoroutinesApi
 @Suppress("UNCHECKED_CAST")
-class LogInViewModelFactory : ViewModelProvider.NewInstanceFactory() {
+class LogInViewModelFactory(private val userRepository: UserRepository) : ViewModelProvider.NewInstanceFactory() {
 
     companion object {
         @Volatile
         private var instance: LogInViewModelFactory? = null
-        fun getInstance(): LogInViewModelFactory =
+        fun getInstance(context: Context): LogInViewModelFactory =
             instance ?: synchronized(this) {
-                instance ?: LogInViewModelFactory()
+                instance ?: LogInViewModelFactory(
+                    Injection.providerUserRepository(context))
             }
     }
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return LogInViewModel() as T
+        return LogInViewModel(userRepository) as T
     }
 }
