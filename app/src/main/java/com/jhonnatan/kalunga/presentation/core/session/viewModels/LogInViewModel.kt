@@ -64,12 +64,7 @@ class LogInViewModel : ViewModel() {
                 }
                 CodeField.PASSWORD_FIELD.code -> {
                     userAccount.value!!.password = text.toString()
-                    //isValidLong(
-                    //    text,
-                    //    CodeField.PASSWORD_FIELD.code,
-                    //    CodeLong.PASSWORD_FIELD.code,
-                    //    validPassword
-                    //)
+                    isValidLong(text)
                 }
             }
         }
@@ -90,6 +85,21 @@ class LogInViewModel : ViewModel() {
         } else {
             setErrorText(CodeField.EMAIL_FIELD.code, ResponseErrorField.ERROR_INVALID_MAIL.value)
             validEmail.value = 0
+            //changeEnableButton()
+        }
+    }
+
+    private fun isValidLong(text: Editable?) {
+        if (UtilsFields().isValidLong(text.toString(), CodeLong.PASSWORD_FIELD.code)) {
+            setErrorText(CodeField.PASSWORD_FIELD.code, ResponseErrorField.DEFAULT.value)
+            validPassword.value = 1
+            //changeEnableButton()
+        } else {
+            setErrorText(
+                CodeField.PASSWORD_FIELD.code,
+                ResponseErrorField.ERROR_LONG_CHARACTERS.value + CodeLong.PASSWORD_FIELD.code + ResponseErrorField.ERROR_CHARACTERS.value
+            )
+            validPassword.value = 0
             //changeEnableButton()
         }
     }
