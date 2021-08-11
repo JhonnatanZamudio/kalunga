@@ -63,4 +63,8 @@
     <string name="Hemos_enviado_un_correo_electrónico_valide_su_cuenta">Hemos enviado un correo electrónico, valide su cuenta</string>
     <string name="No_ha_sido_posible_enviarle_el_correo_electronico_contactese">No ha sido posible enviarle el correo electrónico, contáctese con el administrador</string>
     <string name="Error_en_el_servidor_por_favor_intente_mas_tarde">Error en el servidor, por favor intente más tarde</string>
+    <string name="hola">Hola!</string>
+    <string name="olvidaste_tu_contrase_a">¿Olvidaste tu contraseña?</string>
+    <string name="a_n_no_est_s_registrado">¿Aún no estás registrado?</string>
+    <string name="reg_strate">Regístrate</string>
 </resources>
