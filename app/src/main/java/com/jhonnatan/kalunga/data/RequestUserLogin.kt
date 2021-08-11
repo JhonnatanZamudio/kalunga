@@ -11,5 +11,5 @@ import com.google.gson.annotations.SerializedName
  **/
 data class RequestUserLogin(
     @SerializedName("account") val account: String,
-    @SerializedName("password_user") val passwordUser: String
+    @SerializedName("password_user") val password_user: String
 )

@@ -20,12 +20,12 @@ class UtilsSecurity {
 
     @SuppressLint("GetInstance")
     @Throws(Exception::class)
-    fun cipherData(data: String): String? {
+    fun cipherData(data: String): String {
         val secretKeySpec: SecretKeySpec = generateKey(password)
         val cipher: Cipher = Cipher.getInstance("AES")
         cipher.init(Cipher.ENCRYPT_MODE, secretKeySpec)
         val datoEncriptado: ByteArray = cipher.doFinal(data.toByteArray())
-        return Base64.encodeToString(datoEncriptado, Base64.DEFAULT)
+        return Base64.encodeToString(datoEncriptado, Base64.DEFAULT).trim()
     }
 
     @Throws(java.lang.Exception::class)

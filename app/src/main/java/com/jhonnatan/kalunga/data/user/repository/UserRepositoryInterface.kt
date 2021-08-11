@@ -1,5 +1,6 @@
 package com.jhonnatan.kalunga.data.user.repository
 
+import com.jhonnatan.kalunga.data.RequestUserLogin
 import com.jhonnatan.kalunga.data.user.entities.RequestUsers
 import com.jhonnatan.kalunga.data.user.entities.RequestUsersUpdate
 import com.jhonnatan.kalunga.data.user.entities.ResponseUsers
@@ -36,5 +37,7 @@ interface UserRepositoryInterface {
     suspend fun deleteUserLocal(user: User)
 
     suspend fun clearUsersLocal()
+
+    suspend fun loginUserRemote(requestUserLogin: RequestUserLogin): List<ResponseUsers>
 
 }
