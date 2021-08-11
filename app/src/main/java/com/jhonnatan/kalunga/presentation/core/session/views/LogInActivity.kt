@@ -18,6 +18,7 @@ import com.jhonnatan.kalunga.presentation.core.session.viewModels.SignUpViewMode
 import com.jhonnatan.kalunga.presentation.core.session.viewModels.SignUpViewModelFactory
 import com.jhonnatan.kalunga.presentation.core.utils.CustomSnackBar
 import com.jhonnatan.kalunga.presentation.core.utils.LoadingDialog
+import com.jhonnatan.kalunga.presentation.features.dashboard.views.DashboardActivity
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 class LogInActivity : AppCompatActivity() {
@@ -128,23 +129,13 @@ class LogInActivity : AppCompatActivity() {
                     viewModel.snackBarNavigate.postValue(CodeSnackBarCloseAction.NONE.code)
                     viewModel.snackBarTextWarning.postValue(getString(R.string.debe_tener_conecion_a_internet_para_continuar))
                 }
-                1 -> {
-                    viewModel.snackBarNavigate.postValue(CodeSnackBarCloseAction.STARTING_ACTIVITY.code)
-                    viewModel.snackBarTextInfo.postValue(getString(R.string.El_correo_ingresado_ya_tiene_una_cuenta_asociada_en_Kalunga))
-                }
-                2 -> {
-                    viewModel.snackBarNavigate.postValue(CodeSnackBarCloseAction.STARTING_ACTIVITY.code)
-                    viewModel.snackBarTextInfo.postValue(getString(R.string.El_correo_ingresado_no_ha_sido_validado_verifique_su_email))
-                }
+                1 -> goToChangePassword()
+                2 -> goToDashboard()
                 3 -> {
-                    viewModel.snackBarNavigate.postValue(CodeSnackBarCloseAction.STARTING_ACTIVITY.code)
-                    viewModel.snackBarTextSuccess.postValue(getString(R.string.Hemos_enviado_un_correo_electrónico_valide_su_cuenta))
+                    viewModel.snackBarNavigate.postValue(CodeSnackBarCloseAction.NONE.code)
+                    viewModel.snackBarTextInfo.postValue(viewModel.snackBarText.value.toString())
                 }
                 4 -> {
-                    viewModel.snackBarNavigate.postValue(CodeSnackBarCloseAction.STARTING_ACTIVITY.code)
-                    viewModel.snackBarTextError.postValue(getString(R.string.No_ha_sido_posible_enviarle_el_correo_electronico_contactese))
-                }
-                5 -> {
                     viewModel.snackBarNavigate.postValue(CodeSnackBarCloseAction.NONE.code)
                     viewModel.snackBarTextError.postValue(getString(R.string.Error_en_el_servidor_por_favor_intente_mas_tarde))
                 }
@@ -176,6 +167,23 @@ class LogInActivity : AppCompatActivity() {
         val intent = Intent(this@LogInActivity, ForgetPasswordActivity::class.java)
         startActivity(intent)
         overridePendingTransition(R.anim.up_in, R.anim.up_out)
+        finish()
+    }
+
+    @DelicateCoroutinesApi
+    private fun goToChangePassword() {
+        val intent = Intent(this@LogInActivity, ChangePasswordActivity::class.java)
+        intent.putExtra("ACCOUNT", viewModel.userAccount.value!!.email)
+        startActivity(intent)
+        overridePendingTransition(R.anim.left_in, R.anim.left_out)
+        finish()
+    }
+
+    @DelicateCoroutinesApi
+    private fun goToDashboard() {
+        val intent = Intent(this@LogInActivity, DashboardActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(R.anim.left_in, R.anim.left_out)
         finish()
     }
 

@@ -3,6 +3,7 @@ package com.jhonnatan.kalunga.domain.useCases
 import com.jhonnatan.kalunga.data.RequestUserLogin
 import com.jhonnatan.kalunga.data.user.entities.RequestUsers
 import com.jhonnatan.kalunga.data.user.entities.ResponseUsers
+import com.jhonnatan.kalunga.data.user.entities.UserRemote
 import com.jhonnatan.kalunga.data.user.repository.UserRepository
 import com.jhonnatan.kalunga.domain.models.enumeration.CodeStatusUser
 
@@ -15,7 +16,8 @@ import com.jhonnatan.kalunga.domain.models.enumeration.CodeStatusUser
  **/
 class LogInUseCase(
     private val userRepository: UserRepository) {
-
+    lateinit var responseMessage: String
+    lateinit var userRemote: UserRemote
     fun changeEnableButton(
         email: Int, password: Int
     ): Boolean {
@@ -27,14 +29,20 @@ class LogInUseCase(
         println("resultUser")
         println(resultUser)
         if (!resultUser.isNullOrEmpty()){
-            if (resultUser.first().message == "El correo electrónico no se encuentra asociado a una cuenta de Kalunga") {
-                return 0
-            } else if (resultUser.first().status == "successful") {
-                return 1
+            responseMessage = resultUser.first().message!!
+            if (resultUser.first().status == "successful") {
+                if (resultUser.first().message == "Cambiar password") {
+                    return 1
+                } else if (resultUser.first().message == "Datos correctos") {
+                    userRemote = resultUser.first().data?.first()!!
+                    return 2
+                } else {
+                    return 3
+                }
             } else if (resultUser.first().status == "error") {
-                return 2
+                return 4
             }
         }
-        return 2
+        return 4
     }
 }

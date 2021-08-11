@@ -9,13 +9,11 @@ import androidx.lifecycle.viewModelScope
 import com.jhonnatan.kalunga.R
 import com.jhonnatan.kalunga.data.RequestUserLogin
 import com.jhonnatan.kalunga.data.user.entities.RequestUsers
+import com.jhonnatan.kalunga.data.user.entities.User
 import com.jhonnatan.kalunga.data.user.repository.UserRepository
 import com.jhonnatan.kalunga.domain.injectionOfDependencies.Injection
 import com.jhonnatan.kalunga.domain.models.entities.UserAccountData
-import com.jhonnatan.kalunga.domain.models.enumeration.CodeField
-import com.jhonnatan.kalunga.domain.models.enumeration.CodeLong
-import com.jhonnatan.kalunga.domain.models.enumeration.CodeSnackBarCloseAction
-import com.jhonnatan.kalunga.domain.models.enumeration.ResponseErrorField
+import com.jhonnatan.kalunga.domain.models.enumeration.*
 import com.jhonnatan.kalunga.domain.models.utils.UtilsFields
 import com.jhonnatan.kalunga.domain.models.utils.UtilsNetwork
 import com.jhonnatan.kalunga.domain.models.utils.UtilsSecurity
@@ -49,6 +47,7 @@ class LogInViewModel(userRepository: UserRepository) : ViewModel() {
     val snackBarTextSuccess = MutableLiveData<String>()
     val snackBarNavigate = MutableLiveData<Int>()
     val snackBarAction = MutableLiveData<Int>()
+    val snackBarText = MutableLiveData<String>()
     private val logInUseCase = LogInUseCase(userRepository)
     private var validEmail = MutableLiveData<Int>()
     private var validPassword = MutableLiveData<Int>()
@@ -167,7 +166,32 @@ class LogInViewModel(userRepository: UserRepository) : ViewModel() {
             userAccount.value!!.email,
             UtilsSecurity().cipherData(userAccount.value!!.password)!!,
         )
-        val resultUser = logInUseCase.loginUser(userInfo)
+        println("userInfo")
+        println(userInfo)
+        val loginResponse = logInUseCase.loginUser(userInfo)
+        when (loginResponse) {
+            2 -> {
+                println("logInUseCase.userRemote")
+                println(logInUseCase.userRemote)
+                /*val userLocal = User(
+                    0,
+                    userAccount.value!!.email,
+                    true,
+                    0,
+                    userAccount.value!!.email,
+                    userAccount.value!!.name,
+                    typeDocumentsList[typeDocumentSelectedPosition.value!!].valor,
+                    UtilsSecurity().cipherData(userAccount.value!!.identification)!!,
+                    UtilsSecurity().cipherData(userAccount.value!!.phone.replace(" ",""))!!,
+                    countriesList[countrySelectedPosition.value!!].pais,
+                    userAccount.value!!.city
+                )
+                logInUseCase.insertUserLocal(userLocal)*/
+            }
+            3 -> snackBarText.value=logInUseCase.responseMessage
+            else ->{}
+        }
+        snackBarAction.value = loginResponse
     }
 }
 

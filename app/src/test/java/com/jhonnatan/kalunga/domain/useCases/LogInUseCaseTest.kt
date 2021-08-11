@@ -62,7 +62,7 @@ class LogInUseCaseTest {
                 UtilsSecurity().cipherData(faker.animal.name())!!,
             )
             val result = logInUseCase.loginUser(userInfo)
-            Assert.assertEquals(0, result)
+            Assert.assertEquals(3, result)
         }
     }
 
