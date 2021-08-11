@@ -47,6 +47,14 @@ class LogInActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+        viewModel.errorEmail.observe(this, {
+            binding.textViewEmailError.text = it
+        })
+
+        viewModel.errorPassword.observe(this, {
+            binding.textViewPasswordError.text = it
+        })
+
         viewModel.navigateToSignUp.observe(this, {
             if (it == true)
                 goToSignUp()
