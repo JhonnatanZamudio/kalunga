@@ -67,4 +67,6 @@
     <string name="olvidaste_tu_contrase_a">¿Olvidaste tu contraseña?</string>
     <string name="a_n_no_est_s_registrado">¿Aún no estás registrado?</string>
     <string name="reg_strate">Regístrate</string>
+    <string name="forget_password">Forget password</string>
+    <string name="change_password">Change password</string>
 </resources>
