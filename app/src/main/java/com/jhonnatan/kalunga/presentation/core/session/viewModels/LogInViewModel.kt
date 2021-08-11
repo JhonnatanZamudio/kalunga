@@ -24,10 +24,12 @@ class LogInViewModel : ViewModel() {
     private var passwordCounter = MutableLiveData<Int>()
     var showPassword = MutableLiveData<Boolean>()
     val navigateToSignUp = MutableLiveData<Boolean>()
+    val navigateToForgetPassword = MutableLiveData<Boolean>()
     private val logInUseCase = LogInUseCase()
 
     init {
         navigateToSignUp.value = false
+        navigateToForgetPassword.value = false
         passwordCounter.value = 0
     }
 
@@ -42,6 +44,10 @@ class LogInViewModel : ViewModel() {
 
     fun navigateToSignUp() {
         navigateToSignUp.value = true
+    }
+
+    fun navigateToForgetPassword() {
+        navigateToForgetPassword.value = true
     }
 }
 

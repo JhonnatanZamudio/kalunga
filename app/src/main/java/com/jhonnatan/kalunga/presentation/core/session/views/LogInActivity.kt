@@ -51,6 +51,11 @@ class LogInActivity : AppCompatActivity() {
             if (it == true)
                 goToSignUp()
         })
+
+        viewModel.navigateToForgetPassword.observe(this, {
+            if (it == true)
+                goToForgetPassword()
+        })
     }
 
 
@@ -62,6 +67,13 @@ class LogInActivity : AppCompatActivity() {
         finish()
     }
 
+    @DelicateCoroutinesApi
+    private fun goToForgetPassword() {
+        val intent = Intent(this@LogInActivity, ForgetPasswordActivity::class.java)
+        startActivity(intent)
+        overridePendingTransition(R.anim.up_in, R.anim.up_out)
+        finish()
+    }
 
     @DelicateCoroutinesApi
     override fun onBackPressed() {
