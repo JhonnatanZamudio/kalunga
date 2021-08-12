@@ -10,6 +10,7 @@ import com.jhonnatan.kalunga.data.user.datasource.UserDataSourceLocal
 import com.jhonnatan.kalunga.data.user.datasource.UserDataSourceRemote
 import com.jhonnatan.kalunga.data.user.repository.UserRepository
 import com.jhonnatan.kalunga.domain.models.utils.UtilsSecurity
+import com.jhonnatan.kalunga.domain.useCases.utils.Users
 import io.github.serpro69.kfaker.Faker
 import kotlinx.coroutines.*
 import kotlinx.coroutines.test.setMain
@@ -57,9 +58,23 @@ class LogInUseCaseTest {
     @Test
     fun `Caso 01`(): Unit = runBlocking {
         launch(Dispatchers.Main) {
+            val users = Users().cloneServer()
+            val userInfo = RequestUserLogin(
+                users.email,
+                "Jhotec2013",
+            )
+            val result = logInUseCase.loginUser(userInfo)
+            Assert.assertEquals(2, result)
+        }
+    }
+
+
+    @Test
+    fun `Caso 02`(): Unit = runBlocking {
+        launch(Dispatchers.Main) {
             val userInfo = RequestUserLogin(
                 faker.animal.name(),
-                UtilsSecurity().cipherData(faker.animal.name())!!,
+                UtilsSecurity().cipherData(faker.animal.name()),
             )
             val result = logInUseCase.loginUser(userInfo)
             Assert.assertEquals(3, result)

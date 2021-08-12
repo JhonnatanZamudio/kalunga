@@ -27,8 +27,6 @@ class LogInUseCase(
 
     suspend fun loginUser(user: RequestUserLogin): Int{
         val resultUser = userRepository.loginUserRemote(user)
-        println("resultUser")
-        println(resultUser)
         if (!resultUser.isNullOrEmpty()){
             responseMessage = resultUser.first().message!!
             if (resultUser.first().status == "successful") {
