@@ -164,29 +164,25 @@ class LogInViewModel(userRepository: UserRepository) : ViewModel() {
     suspend fun loginUserRemote(){
         val userInfo = RequestUserLogin(
             userAccount.value!!.email,
-            UtilsSecurity().cipherData(userAccount.value!!.password)!!,
+            UtilsSecurity().cipherData(userAccount.value!!.password),
         )
-        println("userInfo")
-        println(userInfo)
         val loginResponse = logInUseCase.loginUser(userInfo)
         when (loginResponse) {
             2 -> {
-                println("logInUseCase.userRemote")
-                println(logInUseCase.userRemote)
-                /*val userLocal = User(
+                val userLocal = User(
                     0,
-                    userAccount.value!!.email,
+                    logInUseCase.userRemote.account,
                     true,
-                    0,
-                    userAccount.value!!.email,
-                    userAccount.value!!.name,
-                    typeDocumentsList[typeDocumentSelectedPosition.value!!].valor,
-                    UtilsSecurity().cipherData(userAccount.value!!.identification)!!,
-                    UtilsSecurity().cipherData(userAccount.value!!.phone.replace(" ",""))!!,
-                    countriesList[countrySelectedPosition.value!!].pais,
-                    userAccount.value!!.city
+                    logInUseCase.userRemote.typeUser,
+                    logInUseCase.userRemote.email,
+                    logInUseCase.userRemote.fullName,
+                    logInUseCase.userRemote.documentType,
+                    logInUseCase.userRemote.documentNumber,
+                    logInUseCase.userRemote.phoneNumber,
+                    logInUseCase.userRemote.country,
+                    logInUseCase.userRemote.city
                 )
-                logInUseCase.insertUserLocal(userLocal)*/
+                logInUseCase.insertUserLocal(userLocal)
             }
             3 -> snackBarText.value=logInUseCase.responseMessage
             else ->{}

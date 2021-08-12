@@ -3,6 +3,7 @@ package com.jhonnatan.kalunga.domain.useCases
 import com.jhonnatan.kalunga.data.RequestUserLogin
 import com.jhonnatan.kalunga.data.user.entities.RequestUsers
 import com.jhonnatan.kalunga.data.user.entities.ResponseUsers
+import com.jhonnatan.kalunga.data.user.entities.User
 import com.jhonnatan.kalunga.data.user.entities.UserRemote
 import com.jhonnatan.kalunga.data.user.repository.UserRepository
 import com.jhonnatan.kalunga.domain.models.enumeration.CodeStatusUser
@@ -44,5 +45,10 @@ class LogInUseCase(
             }
         }
         return 4
+    }
+
+    suspend fun insertUserLocal(user: User){
+        val insertUser = userRepository.insertUserLocal(user)
+        return insertUser
     }
 }
