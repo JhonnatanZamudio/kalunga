@@ -11,18 +11,6 @@ import com.jhonnatan.kalunga.domain.models.enumeration.CodePatterns
  **/
 class SignUpUseCase {
 
-    fun areFieldsEmpty(text: String): Boolean {
-        return text.isEmpty()
-    }
-
-    fun isValidEmail(text: String): Boolean {
-        return text.matches(CodePatterns.EMAIL_VALIDATION.value.toRegex())
-    }
-
-    fun isValidLong(text: String, min: Int): Boolean {
-        return text.length > min
-    }
-
     fun arePasswordsEqual(password: String, confirmPassword: String): Boolean {
         return password == confirmPassword
     }
@@ -31,10 +19,6 @@ class SignUpUseCase {
         email: Int, name: Int, password: Int, confirmPassword: Int,
     ): Boolean {
         return email == 1 && name == 1 && password == 1 && confirmPassword == 1
-    }
-
-    fun isNumberPair(number: Int): Boolean {
-        return number % 2 == 0
     }
 
 }

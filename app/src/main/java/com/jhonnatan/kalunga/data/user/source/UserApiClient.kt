@@ -1,5 +1,6 @@
 package com.jhonnatan.kalunga.data.user.source
 
+import com.jhonnatan.kalunga.data.RequestUserLogin
 import com.jhonnatan.kalunga.data.user.entities.RequestUsers
 import com.jhonnatan.kalunga.data.user.entities.RequestUsersUpdate
 import com.jhonnatan.kalunga.data.user.entities.ResponseUsers
@@ -33,4 +34,7 @@ interface UserApiClient {
     @DELETE("users/delete/{account}")
     suspend fun deleteUser(@Path("account") account: String): Response<List<ResponseUsers>>
 
+    @Headers("Content-Type: application/json")
+    @POST("users/login")
+    suspend fun loginUserRemote(@Body requestUsersLogin: RequestUserLogin): Response<List<ResponseUsers>>
 }

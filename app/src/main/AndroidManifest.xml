@@ -43,8 +43,15 @@
         <activity
             android:name=".presentation.core.legal.views.TermsAndPrivacyActivity"
             android:screenOrientation="portrait"
-            tools:ignore="LockedOrientationActivity">
-        </activity>
+            tools:ignore="LockedOrientationActivity"/>
+        <activity
+            android:name=".presentation.core.session.views.ForgetPasswordActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
+        <activity
+            android:name=".presentation.core.session.views.ChangePasswordActivity"
+            android:screenOrientation="portrait"
+            tools:ignore="LockedOrientationActivity"/>
         <activity
             android:name=".presentation.core.home.views.SplashScreenActivity"
             android:screenOrientation="portrait"

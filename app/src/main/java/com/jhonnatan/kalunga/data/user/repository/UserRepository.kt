@@ -1,5 +1,6 @@
 package com.jhonnatan.kalunga.data.user.repository
 
+import com.jhonnatan.kalunga.data.RequestUserLogin
 import com.jhonnatan.kalunga.data.user.datasource.UserDataSourceLocal
 import com.jhonnatan.kalunga.data.user.entities.RequestUsers
 import com.jhonnatan.kalunga.data.user.entities.RequestUsersUpdate
@@ -77,6 +78,10 @@ class UserRepository(
 
     override suspend fun clearUsersLocal() {
         userDataSourceLocal.clearUsers()
+    }
+
+    override suspend fun loginUserRemote(requestUserLogin: RequestUserLogin): List<ResponseUsers> {
+        return userDataSourceRemote.loginUserRemote(requestUserLogin)
     }
 
 }
